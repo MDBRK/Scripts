@@ -1,8 +1,13 @@
 <#
-.SYNOPSIS
 Scan files or directories for potential network connections (possible C2 indicators).
 .PARAMETER Path
 File or folder to scan.
+# Scan a single file
+.\C2Scan.ps1 -Path "C:\Users\user\script.ps1"
+
+# Scan a folder recursively
+.\C2Scan.ps1 -Path "C:\Users\user\Downloads"
+
 #>
 
 param (
@@ -50,3 +55,4 @@ if (Test-Path $Path) {
 } else {
     Write-Output ("Path not found: {0}" -f $Path)
 }
+
