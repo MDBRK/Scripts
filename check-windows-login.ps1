@@ -9,6 +9,7 @@
 # 4647 -> User-initiated logoff (manual sign-out)
 # Source: https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-ids
 
+# ----------------------------------------------
 # Common System Accounts You Might See:
 # DWM-1  -> Desktop Window Manager (handles Windows visual effects)
 # UMFD-0 -> User Mode Font Driver Host (system font rendering service)
@@ -18,8 +19,20 @@
 # Sources:
 # https://learn.microsoft.com/en-us/windows/win32/dwm/dwm-overview
 # https://learn.microsoft.com/en-us/windows/win32/printdocs/umdf-driver-model-overview
+# ----------------------------------------------
 
-# ==============================================
+# Logon Type Reference (Property[8]):
+# 2  -> Interactive: Local login via keyboard/console
+# 3  -> Network: Access from another system (e.g., SMB share)
+# 4  -> Batch: Scheduled task or script
+# 5  -> Service: Windows service account login
+# 7  -> Unlock: Workstation unlock
+# 8  -> NetworkCleartext: Plaintext authentication
+# 9  -> NewCredentials: RunAs with different user
+# 10 -> RemoteInteractive: Remote Desktop (RDP)
+# 11 -> CachedInteractive: Cached domain login (offline)
+# Source: https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624#logon-type
+# ----------------------------------------------
 
 # Get successful logon events (ID 4624)
 Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4624} |
