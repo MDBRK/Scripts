@@ -1,5 +1,6 @@
 #How to use : 
 # ./Script.ps1 -Name software-name    
+# NB: it may take sometimes to finish , due to the recursivly search 
 
 
 param(
@@ -123,3 +124,4 @@ if ($R.Count -eq 0) {
   $R | Sort-Object Type | Format-Table -AutoSize
 }
 Write-Host "`n=== Scan complete ===`n" -ForegroundColor Cyan
+
