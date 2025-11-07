@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # check-c2-linux.sh
-# Scan files/dirs for potential C2 indicators (IPs, URLs, domains, network commands)
+# Scan files/dirs for potential C2 indicators 
 # Usage: ./check-c2-linux.sh /path/to/file_or_directory
 
 set -euo pipefail
@@ -19,18 +19,18 @@ CMD_RE='(curl|wget|nc|ncat|telnet|bash -i|/dev/tcp|socat|powershell|Invoke-WebRe
 
 # find files (text-ish) and scan
 find "$TARGET" -type f -readable 2>/dev/null | while IFS= read -r file; do
-  # skip binary-ish files (quick heuristic)
+  # skip binary files (quick heuristic)
   if head -c 8000 "$file" | grep -qP '\x00'; then
     continue
   fi
 
-  # extract raw matches
+  # extract raw matche
   ips=$(grep -Eo "$IP_RE" "$file" | sort -u || true)
   urls=$(grep -Eo "$URL_RE" "$file" | sort -u || true)
   domains=$(grep -Eo "$DOMAIN_RE" "$file" | sort -u || true)
   cmds=$(grep -Eio "$CMD_RE" "$file" | sort -u || true)
 
-  # validate IPs (filter out >255 octets) and classify private/public
+  # vvalidate ips  and classify private/public
   valid_ips=""
   if [[ -n "$ips" ]]; then
     while IFS= read -r ip; do
